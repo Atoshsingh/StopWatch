@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+
+            background-image: url("1.jpg");
+            background-repeat: no-repeat;
+            background-size: 100% 110%;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+        }
+
+        .timer {
+            margin-bottom: 20px;
+        }
+
+        #container {
+            background-color: rgb(235, 235, 235);
+            border-radius: 10px;
+            padding-left: 40px;
+            width: 300px;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Stop Watch </h1>
+        <div class="timer">
+            <span id="hh">00</span>::<span id="mm">00</span>::<span id="ss">00</span>
+        </div>
+        <button onclick="start()">Start</button>
+        <button onclick="stop()">Stop</button>
+        <button onclick="showdiv()">Error</button>
+        <button onclick="lap()">Lap</button>
+        <button onclick="reset()">Reset</button>
+        <ul id="laplist"></ul>
+        <div id="newdiv"></div>
+    </div>
+    <script>
+
+        var fg = 0;
+        var hr = 0;
+        var min = 0;
+        var sec = 0;
+        var interval;
+        let reseter;
+
+        function start() {
+            reseter = 1;
+            if (fg == 0) {
+                interval = setInterval(startwatch, 100);
+                flag = 1;
+
+            }
+        }
+
+        function stop() {
+            clearInterval(interval);
+
+        }
+
+        function startwatch() {
+            var hh = document.getElementById('hh');
+            var mm = document.getElementById('mm');
+            var ss = document.getElementById('ss');
+
+            sec++;
+            if (sec > 59) {
+                sec = 0;
+                min++;
+            }
+            if (min > 59) {
+                min = 0;
+                hr++;
+            }
+            if (hr > 23) {
+                hr = 0;
+            }
+            if (sec < 10) {
+                ss.innerText = `0${sec}`;
+            } else {
+                ss.innerText = sec;
+            }
+            if (min < 10) {
+                mm.innerText = `0${min}`;
+            } else {
+                mm.innerText = min;
+            }
+            if (hr < 10) {
+                hh.innerText = `0${hr}`;
+            } else {
+                hh.innerText = hr;
+            }
+        }
+
+        function showdiv() {
+            document.getElementById("newdiv").innerHTML = "Stop Watch Working....!"
+        }
+
+        function lap() {
+            var li = document.getElementById("laplist");
+            var subli = document.createElement("li");
+            subli.innerHTML = `${hr}:${min}:${sec}`;
+            li.append(subli);
+
+        }
+
+        function reset() {
+            fg = 0;
+
+            hr = 0;
+            min = 0;
+            sec = 0;
+            clearInterval(interval);
+            hh.innerText = 0;
+            mm.innerText = 0;
+            ss.innerText = 0;
+        }
+    </script>
+</body>
+
+</html>
